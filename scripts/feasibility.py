@@ -93,9 +93,16 @@ def main(root):
                 c[f"yaml_category_{a.get('hasCategory')}"] += 1
                 sensors = []
                 for o in a.get("wasOriginatedBy", []) or []:
-                    sid = (((o or {}).get("Observation") or {}).get("madeBySensor") or {}).get("Sensor", {}).get("id")
+                    if not isinstance(o, dict):
+                        c["yaml_origin_entries_not_structured"] += 1
+                        continue
+                    obs = o.get("Observation") or {}
+                    sensor = (obs.get("madeBySensor") or {}) if isinstance(obs, dict) else {}
+                    sid = (sensor.get("Sensor") or {}).get("id") if isinstance(sensor.get("Sensor"), dict) else None
                     if sid:
                         sensors.append(str(sid))
+                    else:
+                        c["yaml_origin_entries_without_sensor"] += 1
                 if sensors:
                     c["yaml_with_sensors"] += 1
                     present = [x for x in sensors if x in cols]
