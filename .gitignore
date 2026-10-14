@@ -1,0 +1,7 @@
+# Raw downloads and the private hold-out never enter the repository
+data/
+holdout/
+.env
+__pycache__/
+.venv/
+.DS_Store
