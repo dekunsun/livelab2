@@ -1,5 +1,5 @@
 # Raw downloads and the private hold-out never enter the repository
-data/
+/data/
 holdout/
 .env
 __pycache__/

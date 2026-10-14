@@ -1,0 +1,19 @@
+tag,role,feature_of_interest,annotations,source
+T701,heater temperature,Heater (H701) at reboiler vessel (V001),40,dataset anomaly annotations; heater H701 in the actuator log
+T702,heater temperature,Heater (H702) at reboiler vessel (V001),39,dataset anomaly annotations; heater H702 in the actuator log
+T703,process temperature,Reboiler vessel (V001),4,dataset anomaly annotations
+T704,heater temperature,Heater (H704) at column section 2 (C002),29,dataset anomaly annotations; heater H704 in the actuator log
+T705,process temperature,Column section 3 (C003),11,dataset anomaly annotations
+T706,heater temperature,Heater (H706) at column section 1 (C001),26,dataset anomaly annotations (2 further annotations say column section 1); heater H706 in the actuator log
+T708,heater temperature,Heater (H708) at column section 3 (C003),26,dataset anomaly annotations; heater H708 in the actuator log
+T709,process temperature,Column section 1 (C001),20,dataset anomaly annotations
+T711,process temperature,Column section 1 (C001),12,dataset anomaly annotations
+T712,process temperature,Column section 2 (C002),15,dataset anomaly annotations
+FT703,flow,Distillate stream,81,dataset anomaly annotations; reflux exceeds distillate in 78% of events only under this reading
+FT704,flow,Reflux stream,85,dataset anomaly annotations
+FYI702,flow,Cooling water stream,8,dataset anomaly annotations
+PDI701,pressure difference,Entire column,2,dataset anomaly annotations
+PDI702,pressure difference,Buffer vessel (V002),25,dataset anomaly annotations
+PY23,pressure,Entire plant,39,dataset anomaly annotations
+LS701,level switch,,0,not annotated
+LS702,level switch,,0,not annotated

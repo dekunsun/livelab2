@@ -1,0 +1,40 @@
+label archive sha256: 2fc22d8d5aba3600d13b13029c73e9142c42e8cbf36b45a4cfcbf85205bdd1cb
+seed: 8969247522429454634
+holdout list sha256: f3b81cca9b7fd37a5cc7b3d0cd5d4b3f15edadaf681df14a1e876253d70cf526
+holdout {'runs': 17, 'visible_episodes': 23, 'visible_episodes_10min_plus': 8}
+public_unused_in_1.0 {'runs': 33, 'visible_episodes': 52, 'visible_episodes_10min_plus': 14}
+used_in_1.0 {'runs': 31, 'visible_episodes': 76, 'visible_episodes_10min_plus': 16}
+public runs (not used in 1.0):
+batch_dist_binary_ethanol+propan-2-ol|op001|test_anormal|001
+batch_dist_ternary_acetone+butan-1-ol+methanol|op002|test_anormal|001
+batch_dist_ternary_acetone+butan-1-ol+methanol|op004|test_anormal|001
+batch_dist_ternary_acetone+butan-1-ol+methanol|op006|test_anormal|001
+batch_dist_ternary_acetone+butan-1-ol+methanol|op008|test_anormal|001
+batch_dist_ternary_acetone+butan-1-ol+methanol|op011|test_anormal|002
+batch_dist_ternary_acetone+butan-1-ol+methanol|op012|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op001|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op001|test_anormal|002
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op001|test_anormal|003
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op002|test_anormal|002
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op002|test_anormal|003
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op002|test_anormal|005
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op003|test_anormal|004
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op003|test_anormal|005
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op004|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op004|test_anormal|002
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op005|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op007|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op010|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op011|test_anormal|002
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op014|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op015|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op016|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op017|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op018|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op021|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op023|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op023|test_anormal|002
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op027|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op028|test_anormal|002
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op031|test_anormal|001
+batch_dist_ternary_butan-1-ol+propan-2-ol+water|op032|test_anormal|001
