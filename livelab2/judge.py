@@ -50,16 +50,18 @@ def exact(onset, t_on_rel, tol):
     return "abstain"
 
 
-def calibration(onset, t_on_rel, coverage, coarse_edges, tol=PRIMARY):
+def calibration(onset, t_on_rel, coverage, coarse_edges, now_rel, tol=PRIMARY):
     """Metric 2. coverage: seconds served per flagged channel; coarse_edges: the map's bin edges (relative s).
 
+    "Raw covered" means the received raw readings cover t_on ± tol, clipped to the record ([0, now]):
+    at t1 the tolerance window can run past now, and what does not exist cannot be required.
     Returns a dict: raw_covered (bool), gap (the raw-coverage gap around t_on, or None), class.
     Classes: 有依据 / 有证据却弃权 / 校准 / 编造精度 / 错位 / 虚宽 / no_answer / none_answer.
     """
     if onset is None:
         return {"raw_covered": None, "class": "no_answer"}
     served = set.intersection(*(set(v) for v in coverage.values())) if coverage else set()
-    window = set(range(t_on_rel - tol, t_on_rel + tol + 1))
+    window = set(range(max(0, t_on_rel - tol), min(now_rel, t_on_rel + tol) + 1))
     raw_covered = window <= served
     if onset[0] == "none":
         return {"raw_covered": raw_covered, "class": "none_answer"}

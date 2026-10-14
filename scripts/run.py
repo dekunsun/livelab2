@@ -67,7 +67,7 @@ def run_item(item, agent, arm, k, when):
     metrics = {"onset": onset}
     if t_on_rel is not None:
         metrics["exact"] = {str(tol): judge.exact(onset, t_on_rel, tol) for tol in judge.TOLERANCES}
-        metrics["calibration"] = judge.calibration(onset, t_on_rel, rec["coverage"], archive.coarse_edges())
+        metrics["calibration"] = judge.calibration(onset, t_on_rel, rec["coverage"], archive.coarse_edges(), archive.rel(t))
         metrics["early_evidence"] = judge.early_evidence(onset, t_on_rel, archive.rel(item["t_cause"]) if item.get("t_cause") is not None else None)
         metrics["signed_error_s"] = (onset[1] - t_on_rel) if onset and onset[0] == "point" else None
     else:
