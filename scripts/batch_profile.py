@@ -68,7 +68,9 @@ def main(root):
     gaps = collections.Counter()
     for p in kept:
         kind = rid(p).split("|")[2]
-        t = [seconds(r["Time"]) for r in csv.DictReader(open(p, newline="", encoding="utf-8", errors="replace"))]
+        raw = [r["Time"] for r in csv.DictReader(open(p, newline="", encoding="utf-8", errors="replace"))]
+        gaps["rows_without_time"] += sum(1 for x in raw if not x.strip())
+        t = [seconds(x) for x in raw if x.strip()]
         span = 0
         for a, b in zip(t, t[1:]):
             d = (b - a) % 86400  # time of day only; wraps at midnight
