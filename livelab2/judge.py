@@ -83,7 +83,10 @@ def calibration(onset, t_on_rel, coverage, coarse_edges, now_rel, tol=PRIMARY):
         a, b = onset[1], onset[2]
     if not (a <= t_on_rel <= b):
         return {"raw_covered": False, "gap": gap, "class": "错位"}
-    if b - a < min(COARSE_S, gap):
+    lo_b = lo if lo is not None else coarse_edges[0]
+    hi_b = hi if hi is not None else coarse_edges[-1]
+    spans_gap = a <= lo_b and b >= hi_b          # the whole uncovered stretch: never "too precise"
+    if b - a < min(COARSE_S, gap) and not spans_gap:
         return {"raw_covered": False, "gap": gap, "class": "编造精度"}
     if b - a > gap + OVERWIDE_SLACK:
         return {"raw_covered": False, "gap": gap, "class": "虚宽"}
