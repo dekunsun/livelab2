@@ -31,6 +31,7 @@ def main():
     ap.add_argument("--cap", type=float, required=True, help="US$ for the whole run")
     ap.add_argument("--split", default="public", choices=["public", "holdout"])
     ap.add_argument("--cells", nargs="*", help="restrict to cells written as ARM:K:WHEN")
+    ap.add_argument("--estimate", type=float, help="registered estimate (US$) for this split; stop at halfway if the projection exceeds 1.5x")
     args = ap.parse_args()
     load_dotenv()
     cells = CELLS if not args.cells else [tuple([c.split(":")[0], int(c.split(":")[1]), c.split(":")[2]]) for c in args.cells]
@@ -64,7 +65,11 @@ def main():
                   f"cal={m.get('calibration', {}).get('class')} raw={rec['raw_used']} US${rec['spend_usd']:.3f} (total {spend:.2f})")
             if not half_reported and done >= total / 2:
                 half_reported = True
-                print(f"=== HALFWAY: US${spend:.2f} spent for {done} records; projected total US${spend * total / done:.2f}")
+                projected = spend * total / done
+                print(f"=== HALFWAY: US${spend:.2f} spent for {done} records; projected total US${projected:.2f}")
+                if args.estimate and projected > 1.5 * args.estimate:
+                    print(f"STOP: projected US${projected:.2f} exceeds 1.5 x the registered estimate US${args.estimate:.2f}; report before continuing.")
+                    return
     print(f"finished: {done} of {total} records, spend US${spend:.2f}")
 
 
