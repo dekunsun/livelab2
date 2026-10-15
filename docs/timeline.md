@@ -43,3 +43,4 @@
 | 2026-10-15T05:56Z | Claude | 2.0 结果写进面试材料：作品集英文版 v26、中文版 v6 新增“LiveLab 2.0”一节；两份 1.0 会面简报（中、英）问答表各加一行“1.0 之后做了什么”，正文不动 | — | Claude Artifacts / Docs |
 | 2026-10-15T06:32Z | 负责人 | 批准第二个模型：Gemini 3.1 Pro，K = 1,800 的 8 格 + 注入误报题，估 US$20–30，上限 US$45 | — | docs/registration_gemini.md |
 | 2026-10-15T06:34Z | Claude | Gemini 3.1 Pro 冒烟：4 条全过，US$0.35；外推整轮约 US$22。开始正式运行（8 格 + 注入误报题），当天配额用尽即停、次日续跑 | — | results/gemini-3.1-pro/ |
+| 2026-10-15T22:17Z | Claude | Gemini 3.1 Pro 正式运行 180/200 后撞当天配额，US$22.44；已排定配额重置后自动续跑，再跑注入误报题。未计分 | — | docs/registration_gemini.md 偏差 2 |
