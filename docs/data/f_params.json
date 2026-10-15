@@ -1,0 +1,134 @@
+{
+ "W": 300,
+ "min_normal_s": 120,
+ "min_departure_s": 60,
+ "normal_runs": 38,
+ "normal_hours": 62.54,
+ "calibrated_channels": [
+  "FT703",
+  "FT704",
+  "FYI702",
+  "LS702",
+  "PDI701",
+  "PDI702",
+  "PY23",
+  "T701",
+  "T702",
+  "T703",
+  "T704",
+  "T705",
+  "T706",
+  "T708",
+  "T709",
+  "T711",
+  "T712"
+ ],
+ "channels": {
+  "FT703": {
+   "sigma": 0.01260210000000001,
+   "m": 5,
+   "false_departures": 45,
+   "per_hour": 0.72
+  },
+  "FT704": {
+   "sigma": 0.017791200000000014,
+   "m": 5,
+   "false_departures": 46,
+   "per_hour": 0.736
+  },
+  "FYI702": {
+   "sigma": 0.3839934000000005,
+   "m": 3,
+   "false_departures": 0,
+   "per_hour": 0.0
+  },
+  "LS702": {
+   "sigma": 0.0,
+   "m": 3,
+   "false_departures": 0,
+   "per_hour": 0.0
+  },
+  "PDI701": {
+   "sigma": 0.06199604244232177,
+   "m": 3,
+   "false_departures": 0,
+   "per_hour": 0.0
+  },
+  "PDI702": {
+   "sigma": 0.17198160000000015,
+   "m": 4,
+   "false_departures": 56,
+   "per_hour": 0.895
+  },
+  "PY23": {
+   "sigma": 0.7842953999999945,
+   "m": 3,
+   "false_departures": 2,
+   "per_hour": 0.032
+  },
+  "T701": {
+   "sigma": 0.3484109999999359,
+   "m": 3,
+   "false_departures": 46,
+   "per_hour": 0.736
+  },
+  "T702": {
+   "sigma": 0.22238999999998735,
+   "m": 3,
+   "false_departures": 60,
+   "per_hour": 0.959
+  },
+  "T703": {
+   "sigma": 0.22238999999998735,
+   "m": 3,
+   "false_departures": 24,
+   "per_hour": 0.384
+  },
+  "T704": {
+   "sigma": 0.21942479999999426,
+   "m": 3,
+   "false_departures": 44,
+   "per_hour": 0.704
+  },
+  "T705": {
+   "sigma": 0.031134600000001178,
+   "m": 12,
+   "false_departures": 60,
+   "per_hour": 0.959
+  },
+  "T706": {
+   "sigma": 0.19125540000000724,
+   "m": 3,
+   "false_departures": 60,
+   "per_hour": 0.959
+  },
+  "T708": {
+   "sigma": 0.2194248000000048,
+   "m": 3,
+   "false_departures": 44,
+   "per_hour": 0.704
+  },
+  "T709": {
+   "sigma": 0.2965200000000042,
+   "m": 4,
+   "false_departures": 48,
+   "per_hour": 0.767
+  },
+  "T711": {
+   "sigma": 0.06226919999998129,
+   "m": 4,
+   "false_departures": 47,
+   "per_hour": 0.751
+  },
+  "T712": {
+   "sigma": 0.03261719999998719,
+   "m": 4,
+   "false_departures": 56,
+   "per_hour": 0.895
+  }
+ },
+ "pelt": {
+  "available": false,
+  "note": "calibrated separately: baselines.py calibrate-pelt"
+ }
+}

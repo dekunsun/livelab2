@@ -102,7 +102,7 @@ def calibrate():
         params["pelt"] = calibrate_pelt(res, hours)
     PARAMS.write_text(json.dumps(params, indent=1))
     print(json.dumps({c: (v["m"], round(v["sigma"], 4)) for c, v in params["channels"].items()}))
-    print("pelt:", pelt)
+    print("pelt:", params["pelt"])
 
 
 def pelt_points(r, pen):
