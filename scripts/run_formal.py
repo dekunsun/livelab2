@@ -59,6 +59,9 @@ def main():
                 print(f"CAP REACHED at US${spend:.2f}; stopping. {done} of {total} records written.")
                 return
             rec = run_item(it, args.agent, *c)
+            if rec["outcome"] == "transport_error" and ("quota" in (rec.get("error") or "") or "usage limit" in (rec.get("error") or "")):
+                print(f"QUOTA: {rec['error'][:200]}\nstopping without writing a record; rerun the same command to resume. {done} of {total} done, US${spend:.2f}")
+                return
             tmp = path.with_suffix(".json.part"); tmp.write_text(json.dumps(rec, ensure_ascii=False)); os.replace(tmp, path)
             spend += rec["spend_usd"]; done += 1
             m = rec["metrics"]

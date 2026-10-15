@@ -115,6 +115,9 @@ def main():
             print(f"cap reached: US${spend:.2f} >= {args.cap}; stopping before {it['item_id']}")
             break
         rec = run_item(it, args.agent, args.arm, args.k, args.when)
+        if rec["outcome"] == "transport_error" and ("quota" in (rec.get("error") or "") or "usage limit" in (rec.get("error") or "")):
+            print(f"quota reached: {rec['error'][:200]}; stopping without writing a record (rerun to resume)")
+            break
         tmp = path.with_suffix(".json.part")
         tmp.write_text(json.dumps(rec, ensure_ascii=False))
         os.replace(tmp, path)
