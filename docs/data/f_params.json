@@ -128,7 +128,8 @@
   }
  },
  "pelt": {
-  "available": false,
-  "note": "calibrated separately: baselines.py calibrate-pelt"
+  "available": true,
+  "pen": null,
+  "note": "no penalty reached 1/hour"
  }
 }
