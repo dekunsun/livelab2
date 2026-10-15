@@ -31,6 +31,7 @@ def main():
     ap.add_argument("--cap", type=float, required=True, help="US$ for the whole run")
     ap.add_argument("--split", default="public", choices=["public", "holdout"])
     ap.add_argument("--cells", nargs="*", help="restrict to cells written as ARM:K:WHEN")
+    ap.add_argument("--rep", type=int, default=0, help="repetition number: N>0 writes to <cell>.repN")
     ap.add_argument("--estimate", type=float, help="registered estimate (US$) for this split; stop at halfway if the projection exceeds 1.5x")
     args = ap.parse_args()
     load_dotenv()
@@ -38,8 +39,8 @@ def main():
     if args.split == "holdout":
         cells = [c for c in cells if c[1] == 1800]      # the hold-out runs only at K = 1,800
     items = [it for it in load_items(args.split) if it["set"] == "main"]
-    random.Random(20261014).shuffle(items)
-    dirs = {c: out_dir(args.agent, args.split, "main", *c) for c in cells}
+    random.Random(20261014 + args.rep).shuffle(items)
+    dirs = {c: out_dir(args.agent, args.split, "main", *c, rep=args.rep) for c in cells}
     for d in dirs.values():
         d.mkdir(parents=True, exist_ok=True)
     spend = sum(spent_in(d) for d in dirs.values())

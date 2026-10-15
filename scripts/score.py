@@ -14,12 +14,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+INCLUDE_REPS = __import__('os').environ.get('INCLUDE_REPS') == '1'   # checks: set to 1 to include repetitions
 sys.path.insert(0, str(ROOT))
 
 
 def load(tree):
     recs = collections.defaultdict(dict)   # (arm, k, when) -> item_id -> record
-    for p in sorted(Path(tree).glob("*/*.json")):
+    for p in sorted(x for x in Path(tree).glob("*/*.json") if ".rep" not in x.parent.name or INCLUDE_REPS):
         r = json.load(open(p))
         recs[(r["arm"], r["k"], r["when"])][r["item_id"]] = r
     return recs

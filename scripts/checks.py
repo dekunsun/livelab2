@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+INCLUDE_REPS = __import__('os').environ.get('INCLUDE_REPS') == '1'   # checks: set to 1 to include repetitions
 sys.path.insert(0, str(ROOT))
 from livelab2.archive import Archive  # noqa: E402
 from livelab2.prompts import SYSTEM, leak_scan, sha, user_message  # noqa: E402
@@ -24,7 +25,7 @@ def main(tree):
         items.update({it["item_id"]: it for it in json.load(open(ROOT / "holdout/items.json"))})
     fails = {k: [] for k in ("1_served_le_now", "2_leak", "3_replay", "4_audit_le_now", "5_budget", "7_output_cap")}
     n = 0
-    for p in sorted(Path(tree).glob("*/*.json")):
+    for p in sorted(x for x in Path(tree).glob("*/*.json") if ".rep" not in x.parent.name or INCLUDE_REPS):
         r = json.load(open(p)); n += 1
         now = r["now_rel"]
         served = r["coverage"]

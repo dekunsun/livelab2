@@ -30,9 +30,9 @@ def load_items(split):
     return json.load(open(path, encoding="utf-8"))
 
 
-def out_dir(agent, split, set_, arm, k, when):
+def out_dir(agent, split, set_, arm, k, when, rep=0):
     base = ROOT / ("holdout/results" if split == "holdout" else "results")
-    return base / agent / f"{set_}_{split}" / f"{arm}_K{k}_{when}"
+    return base / agent / f"{set_}_{split}" / (f"{arm}_K{k}_{when}" + (f".rep{rep}" if rep else ""))
 
 
 def spent_in(d):
