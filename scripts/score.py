@@ -47,6 +47,22 @@ def table(recs, items_n, tol):
     return "\n".join(rows)
 
 
+def loose(recs):
+    """Exploratory, added after the public results were seen (2026-10-14): a point answer counts as grounded
+    if any served raw second lies within 30 s of t_on, instead of requiring t_on +- 120 s fully covered."""
+    lines = ["| arm | K | ask | 编造精度 (registered) | of which onset within 30 s of served data (loose: grounded) |", "| --- | --- | --- | --- | --- |"]
+    for key in sorted(recs):
+        fab = near = 0
+        for r in recs[key].values():
+            if r["metrics"].get("calibration", {}).get("class") != "编造精度":
+                continue
+            fab += 1
+            served = set.intersection(*(set(v) for v in r["coverage"].values())) if r["coverage"] else set()
+            near += any(abs(x - r["t_on_rel"]) <= 30 for x in served)
+        lines.append(f"| {key[0]} | {key[1]} | {key[2]} | {fab} | {near} |")
+    return "\n".join(lines)
+
+
 def p1(recs, tol, k=1800):
     d1, d2, e1, e2 = recs.get(("D", k, "t1"), {}), recs.get(("D", k, "t2"), {}), recs.get(("E", k, "t1"), {}), recs.get(("E", k, "t2"), {})
     ids = set(d1) & set(d2) & set(e1) & set(e2)
@@ -70,6 +86,8 @@ def main():
     for k in (600, 1800, 3600):
         if ("D", k, "t2") in recs and ("E", k, "t2") in recs:
             print(f"\nP1 at K={k}, tol={args.tol}:", json.dumps(p1(recs, args.tol, k)))
+    print("\nExploratory (not registered): loose grounding for metric 2")
+    print(loose(recs))
     # by subset, main metric only
     by = collections.defaultdict(lambda: collections.Counter())
     for key, rs in recs.items():
