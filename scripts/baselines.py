@@ -32,12 +32,23 @@ RID = re.compile(r"(batch_dist_[^/]+)/operating_point_(\d{3})/(train_normal)_exp
 
 
 def residual(x):
-    """Causal trailing-median residual; None where the value or the window is missing."""
-    out = [None] * len(x)
-    for s in range(W, len(x)):
-        win = [v for v in x[s - W:s] if v is not None]
-        if x[s] is not None and len(win) >= W // 2:
-            out[s] = x[s] - statistics.median(win)
+    """Causal trailing-median residual; None where the value or the window is missing (numpy, same rule)."""
+    import numpy as np
+    a = np.array([np.nan if v is None else v for v in x], dtype=float)
+    out = [None] * len(a)
+    if len(a) <= W:
+        return out
+    win = np.lib.stride_tricks.sliding_window_view(a[:-1], W)        # win[i] = a[i : i+W], predicts a[i+W]
+    ok = np.sum(~np.isnan(win), axis=1) >= W // 2
+    with np.errstate(all="ignore"):
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            med = np.nanmedian(win, axis=1)
+    r = a[W:] - med
+    for i, v in enumerate(r):
+        if ok[i] and not np.isnan(v):
+            out[i + W] = float(v)
     return out
 
 
