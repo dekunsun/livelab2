@@ -34,3 +34,5 @@
 计分：`scripts/score.py results/gemini-3.1-pro/main_public --items-n 25`，检查：`scripts/checks.py`，不改。
 
 ## 偏差日志
+1. **冒烟（2026-10-14）。** 3 题 D t₂ + 1 题 E t₂，4 条全部提交、七项检查全过，US$0.35。实测单题：D 约 US$0.07（每题只取了 1 次窗口、2 次请求），E 约 US$0.15。外推整轮约 US$22，请求约 330 次，预计跨 2 天。冒烟记录放在 `results/gemini-3.1-pro/smoke/`，不计分；正式运行重跑这些题。
+

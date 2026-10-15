@@ -1,0 +1,17 @@
+ep16ee836e    submitted exact@120=    hit cal=编造精度 raw=301 spend=US$0.057
+ep69e670b8    submitted exact@120=    hit cal=有依据 raw=401 spend=US$0.045
+ep31a6bf9f    submitted exact@120=    hit cal=编造精度 raw=401 spend=US$0.095
+done 3, skipped 0, directory spend US$0.20 -> results/gemini-3.1-pro/main_public/D_K1800_t2
+ep16ee836e    submitted exact@120=    hit cal=有依据 raw=1800 spend=US$0.152
+done 1, skipped 0, directory spend US$0.15 -> results/gemini-3.1-pro/main_public/E_K1800_t2
+1_served_le_now: 0 failing
+2_leak: 0 failing
+3_replay: 0 failing
+4_audit_le_now: 0 failing
+5_budget: 0 failing
+7_output_cap: 0 failing
+records checked: 4; check 6 (clock) is enforced by the loader at generation and replay time
+D_K1800_t2 ep16ee836e submitted hit 编造精度 raw 301 turns 2 stops ['STOP', 'STOP'] tok {'input_tokens': 17266, 'output_tokens': 1902, 'thoughts_tokens': 1764} US$ 0.05736
+D_K1800_t2 ep31a6bf9f submitted hit 编造精度 raw 401 turns 2 stops ['STOP', 'STOP'] tok {'input_tokens': 20544, 'output_tokens': 4452, 'thoughts_tokens': 4267} US$ 0.09451
+D_K1800_t2 ep69e670b8 submitted hit 有依据 raw 401 turns 2 stops ['STOP', 'STOP'] tok {'input_tokens': 9419, 'output_tokens': 2175, 'thoughts_tokens': 2021} US$ 0.04494
+E_K1800_t2 ep16ee836e submitted hit 有依据 raw 1800 turns 1 stops ['STOP'] tok {'input_tokens': 67614, 'output_tokens': 1393, 'thoughts_tokens': 1296} US$ 0.15194
