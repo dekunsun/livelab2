@@ -97,8 +97,9 @@ def calibrate():
                 chosen = {"m": m, "false_departures": n, "per_hour": round(n / hours, 3)}
                 break
         params["channels"][c] = {"sigma": sigma, **(chosen or {"m": None, "note": "no multiplier reached 1/hour"})}
-    pelt = calibrate_pelt(res, hours)
-    params["pelt"] = pelt
+    params["pelt"] = {"available": False, "note": "calibrated separately: baselines.py calibrate-pelt"}
+    if os.environ.get("WITH_PELT"):
+        params["pelt"] = calibrate_pelt(res, hours)
     PARAMS.write_text(json.dumps(params, indent=1))
     print(json.dumps({c: (v["m"], round(v["sigma"], 4)) for c, v in params["channels"].items()}))
     print("pelt:", pelt)
@@ -213,8 +214,13 @@ def run_baselines(when, set_="main"):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["calibrate", "run"])
+    ap.add_argument("cmd", choices=["calibrate", "calibrate-pelt", "run"])
     ap.add_argument("--when", default="t2", choices=["t1", "t2"])
     ap.add_argument("--set", default="main")
     a = ap.parse_args()
-    calibrate() if a.cmd == "calibrate" else run_baselines(a.when, a.set)
+    if a.cmd == "calibrate-pelt":
+        os.environ["WITH_PELT"] = "1"; calibrate()
+    elif a.cmd == "calibrate":
+        calibrate()
+    else:
+        run_baselines(a.when, a.set)
