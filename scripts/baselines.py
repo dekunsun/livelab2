@@ -110,7 +110,7 @@ def pelt_points(r, pen):
     arr = np.array([0.0 if v is None else v for v in r], dtype=float)
     if len(arr) < 2 * MIN_DEPART:
         return []
-    algo = ruptures.Pelt(model="l2", min_size=MIN_DEPART, jump=5).fit(arr)
+    algo = ruptures.Pelt(model="l2", min_size=MIN_DEPART, jump=10).fit(arr)
     bk = algo.predict(pen=pen)
     return [b for b in bk if b < len(arr)]
 
@@ -120,15 +120,27 @@ def calibrate_pelt(res, hours):
         import ruptures  # noqa: F401
     except ImportError:
         return {"available": False, "note": "ruptures not installed; F1 skipped"}
-    for pen in (1, 3, 10, 30, 100, 300, 1000, 3000):
-        n = 0
-        for c, series in res.items():
-            sig = max(1e-9, 1.4826 * statistics.median([abs(v) for s in series for v in s if v is not None]))
-            for s in series:
-                n += len(pelt_points([None if v is None else v / sig for v in s], pen))
+    scaled = {}
+    for c, series in res.items():
+        sig = max(1e-9, 1.4826 * statistics.median([abs(v) for s in series for v in s if v is not None]))
+        scaled[c] = [[None if v is None else v / sig for v in s] for s in series]
+
+    def count(pen):
+        return sum(len(pelt_points(s, pen)) for ss in scaled.values() for s in ss)
+
+    pens = (1, 3, 10, 30, 100, 300, 1000, 3000)
+    lo, hi, best = 0, len(pens) - 1, None          # change points fall as the penalty rises: binary search
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        n = count(pens[mid])
         if n / hours <= 1.0:
-            return {"available": True, "pen": pen, "change_points_on_normal": n, "per_hour": round(n / hours, 3), "scaled_by_sigma": True}
-    return {"available": True, "pen": None, "note": "no penalty reached 1/hour"}
+            best, hi = (pens[mid], n), mid - 1
+        else:
+            lo = mid + 1
+    if best is None:
+        return {"available": True, "pen": None, "note": "no penalty reached 1/hour"}
+    return {"available": True, "pen": best[0], "change_points_on_normal": best[1], "per_hour": round(best[1] / hours, 3),
+            "scaled_by_sigma": True, "jump_s": 10}
 
 
 def f2_onset(run, c, start, now, p):
