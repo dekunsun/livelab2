@@ -40,3 +40,4 @@
 | 2026-10-15T04:37Z | Claude | 指标二 v2（覆盖窗口 ±30 秒）重新计分，记为登记偏差 3；P5 仍成立（36 对 7） | results/metric2_v2.md | 本次提交 |
 | 2026-10-15T05:13Z | Claude | 重复运行：rep1 完成（US$10.39）；rep2 29/100 后因账户 API 用量上限中断（71 条 HTTP 400，无花费），失败记录删除，待负责人提高上限后续跑 | — | docs/registration_reps.md 偏差 1 |
 | 2026-10-15T05:52Z | Claude | rep2 续跑完成（US$10.37）。三次运行 500 条检查全过。R1、R2 成立，R3 不成立：差距稳定但只有 3 题且只见于 1.0 用过的段。总花费 US$57.20 | 见 registration_reps.md 偏差 2 | results/reps_summary.md |
+| 2026-10-15T05:56Z | Claude | 2.0 结果写进面试材料：作品集英文版 v26、中文版 v6 新增“LiveLab 2.0”一节；两份 1.0 会面简报（中、英）问答表各加一行“1.0 之后做了什么”，正文不动 | — | Claude Artifacts / Docs |
