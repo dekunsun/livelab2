@@ -22,7 +22,7 @@ An agent sees an anomaly now. Can it go back to the right stretch of history, fi
 
 **Status.** Registered and run on 2026-10-14 (Claude Opus 5.5, one run per cell), then repeated twice and run on a second model. [LiveLab 1.0](https://github.com/dekunsun/livelab) stays frozen; nothing here changes its conclusions.
 
-中文读者：[中文版在页面末尾，点开即可展开](#中文版)。
+[中文版](#中文版)
 
 ## 1. Results
 
