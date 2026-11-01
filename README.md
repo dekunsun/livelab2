@@ -1,4 +1,81 @@
+<div align="center">
+
 # LiveLab 2.0
+
+### Where in time should an agent look to find when an anomaly began?
+
+Dekun Sun · University of Pennsylvania · [ai4s.fyi](https://ai4s.fyi)
+
+Work in progress · 2026 · MIT
+
+[**LiveLab 1.0**](https://github.com/dekunsun/livelab) · [**Preprint**](https://dekunsun.github.io/livelab/docs/preprint/preprint.html) · [Registration](docs/registration.md) · [Repeated runs](results/reps_summary.md) · [Second model](results/gemini_summary.md) · [Timeline](docs/timeline.md) · [New data check](docs/noboom_feasibility.md) · [中文](#中文版)
+
+<img src="docs/figures/arms_hits.png" width="720" alt="Onsets located within 120 s per arm at a late ask time: classical detector 8; fixed window 14 and 10; agent chooses 17 and 10; oracle window 17 and 15">
+
+<sub>Onsets located within ±120 s of the expert annotation, 25 public anomaly episodes, asked late in the anomaly, budget 1,800 raw readings per channel. Dark: Claude Opus 5.5; light: Gemini 3.1 Pro. Counts read from the result records by <code>scripts/plot_arms_hits.py</code>.</sub>
+
+</div>
+
+---
+
+An agent sees an anomaly now. Can it go back to the right stretch of history, find when the anomaly first became visible in the data, and fetch only as much raw data as the answer needs?
+
+**Status.** Registered and run on 2026-10-14 (Claude Opus 5.5, one run per cell), then repeated twice and run on a second model. [LiveLab 1.0](https://github.com/dekunsun/livelab) stays frozen; nothing here changes its conclusions.
+
+中文读者：[中文版在页面末尾，点开即可展开](#中文版)。
+
+## 1. Results
+
+Onsets located within ±120 s, 25 public main-set episodes, evidence budget K = 1,800 raw readings per channel, Claude Opus 5.5:
+
+| Arm | t₁ (just appeared) | t₂ (late in the anomaly) |
+| --- | --- | --- |
+| G always reports "now" (reference) | 5 | 0 |
+| F2 classical detector (last sustained normal) | 8 | 8 |
+| A current view and a 600 s coarse plot only | 19 | 11 |
+| E fixed recent window | 20 | 14 |
+| D active look-back (`get_window`, at most 4 calls) | 20 | 17 |
+| B oracle window | 20 | 17 |
+
+- **What holds.** Given a trend plot, the agent chose its own windows as well as an oracle, on about half the raw data, and beat the classical change detector (at t₂, D right and F2 wrong on 10 items, the reverse on 1).
+- **Not shown.** That active look-back beats a fixed recent window (primary prediction P1). Over three runs D scored 17 at t₂ every time and E 14, 15 and 13: a stable gap of about 3 items, inside the registered no-interpretation band, and all of it from the 15 episodes LiveLab 1.0 had used; on the 10 unused public episodes it is 0 ([repeat registration](docs/registration_reps.md), [results](results/reps_summary.md)).
+- **Consistent with 1.0.** When the raw data did not cover the onset, the model named an exact second rather than "before what I saw" (P5); on 37 injected false alerts it still reported an onset for 25 (P6).
+
+## 2. A second model
+
+Gemini 3.1 Pro, same items and prompts ([registration](docs/registration_gemini.md), [results](results/gemini_summary.md)): at t₂, E 10, D 10, B 15. Naming an exact second instead of "before what I saw" held in the same direction (10 to 1); it reported an onset for 19 of 37 injected false alerts, exactly half; but D fell 5 short of the oracle window, so "choosing as well as an oracle" is Opus's behaviour, not general. Across models only direction is read.
+
+Item-level verdicts, problems with the scoring rule itself and limits: [registration](docs/registration.md) · [timeline](docs/timeline.md). Spend US$91.91 (Opus 57.20 including two repeats; Gemini 34.71).
+
+## 3. Is there more data?
+
+Not on this dataset: under the frozen item rules, every public episode that qualifies is already used, and the hold-out is reserved for qualification. The continuous mini-plant sets in NoBOOM were downloaded and profiled; their labels almost never mark when an anomaly became visible, so they cannot answer this question as posed ([feasibility check](docs/noboom_feasibility.md)). No new run is registered.
+
+## 4. Repository
+
+- [Item rules](docs/question_rules.md) (frozen) · [registration](docs/registration.md) (committed before any run, with a deviation log) · [one-shot steps](docs/one_shot_actions.md) · [timeline](docs/timeline.md) (append-only, UTC)
+- `items/public.json`: public items; hold-out items stay on the author's machine, with only their sha256 in the repository
+- `livelab2/`: archive and budget, prompts, scoring, model loop, mock agents; `scripts/`: item generation, runs, scoring, automatic checks, classical baselines, figures
+- `results/`: every record keeps the full text sent to the model, every exchange, the audit of every window fetched, and the spend
+
+## 5. Running it
+
+```bash
+python3 -m venv .venv && ./.venv/bin/pip install numpy pyyaml ruptures
+# data: unzip the label and sensor archives of Zenodo 17395543 into data/raw/batch/ (see livelab2/data.py)
+./.venv/bin/python scripts/run.py --agent mock-oracle --arm D --k 1800 --when t2   # no API key needed
+./.venv/bin/python scripts/score.py results/mock-oracle/main_public
+./.venv/bin/python scripts/checks.py results/mock-oracle/main_public
+```
+
+## 6. Data and licence
+
+Data: Arweiler et al., *Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods*, Scientific Data 2026; Zenodo [10.5281/zenodo.17395543](https://doi.org/10.5281/zenodo.17395543) (local copy version 1.1.3), CC BY 4.0. Raw data is not in this repository; records in `results/` contain excerpts of it, attributed under CC BY 4.0. The sensor legend `docs/data/tags.csv` comes from LiveLab 1.0. Code and documentation: MIT (`LICENSE`).
+
+## 中文版
+
+<details>
+<summary>点开展开中文版</summary>
 
 模型在当前时刻看到异常后，能否回到正确的历史时间窗口，找出异常从什么时候开始在数据里可见，并且只取足以回答的最少数据。
 
@@ -43,3 +120,5 @@ python3 -m venv .venv && ./.venv/bin/pip install numpy pyyaml ruptures
 ## 数据与许可
 
 数据：Arweiler et al., *Batch Distillation Data for Developing Machine Learning Anomaly Detection Methods*, Scientific Data 2026；Zenodo [10.5281/zenodo.17395543](https://doi.org/10.5281/zenodo.17395543)（本地副本为 1.1.3 版），CC BY 4.0。原始数据不进本仓库；`results/` 里的记录包含该数据的片段，按 CC BY 4.0 注明来源。传感器图例 `docs/data/tags.csv` 来自 LiveLab 1.0。代码和文档：MIT（`LICENSE`）。
+
+</details>
