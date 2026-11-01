@@ -48,3 +48,5 @@
 | 2026-10-16T06:23Z | Claude | 两份申请简报（中、英）加第五个面试故事：真实装置 36/37 误报；两份会面简报问答表加“安全治理 vs 质量治理”一行；今日改过的 10 份 Claude Docs 日期统一改为 2026-10-15，副标题注明首稿日期和改动 | — | Claude Docs |
 | 2026-10-16T19:43Z | Claude | Gemini 3.1 Pro 正式 200/200 完成（US$26.85）；注入题 30/37 撞目录上限，提到 US$9 补跑；开始检查与计分 | — | docs/registration_gemini.md 偏差 3 |
 | 2026-10-16T19:53Z | Claude | Gemini 3.1 Pro 全部完成（注入题 37/37，合计 US$34.71）。G1 成立、G2 正好达门槛（19/37）、G3 不成立（D 10 对 B 15）。写入登记偏差 4、README、results/gemini_summary.md | 2.0 总花费 US$91.91 | 本次提交 |
+| 2026-11-01T00:54Z | Claude | NoBOOM 可行性检查，只读公开资料：论文、DOI 目录索引、文件清单、传感器说明 CSV、一个正常运行的 yaml 和表头；未下载数据，未打开任何异常文件 | NoBOOM 六个集：bpw/abm = 2.0 已用数据；BASF ind 无指名传感器、采样率保密、二值标签，不可行；连续精馏中试 wat 11 序列 / 20 异常、but 8 / 24、ome 3 / 4，30 秒采样、三相标签、yaml 含受影响传感器，可行，合计 19.1 MB、49 个 CSV；估计 25–40 段、US5–30 | docs/noboom_feasibility.md |
+| 2026-11-01T01:00Z | Claude | 负责人批准下载（从 DOI 目录，上限 US$45）。下载 NoBOOM 三个连续精馏文件夹到 data/raw/noboom/（不进仓库）：101 个文件（49 个 CSV、49 个 yaml、3 个传感器说明），20 MB，按 noboom.md5 逐个校验 0 不符。未打开任何异常运行的数值或 yaml | 下一步：只跑汇总统计，再冻结 2.1 出题规则 | data/raw/noboom/manifest_cont.md5 |
