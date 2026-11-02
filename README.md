@@ -8,7 +8,7 @@ Dekun Sun · University of Pennsylvania · [ai4s.fyi](https://ai4s.fyi)
 
 Work in progress · 2026 · MIT
 
-[**LiveLab 1.0**](https://github.com/dekunsun/livelab) · [**Preprint**](https://dekunsun.github.io/livelab/docs/preprint/preprint.html) · [Registration](docs/registration.md) · [Repeated runs](results/reps_summary.md) · [Second model](results/gemini_summary.md)
+[**LiveLab 1.0**](https://github.com/dekunsun/livelab) · [**Preprint**](https://dekunsun.github.io/livelab/docs/preprint/preprint.html) · [Registration](docs/registration.md) · [Repeated runs](results/reps_summary.md) · [Second model](results/gemini_summary.md) · [中文](#中文版)
 
 <img src="docs/figures/arms_hits.png" width="720" alt="Onsets located within 120 s per arm at a late ask time: classical detector 8; fixed window 14 and 10; agent chooses 17 and 10; oracle window 17 and 15">
 
